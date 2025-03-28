@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { HeaderLeft, HeaderRight, HeaderWapper } from './style'
 import { SearchOutlined } from '@ant-design/icons'
 
@@ -9,6 +9,7 @@ import { headerLinks } from '@/common/local-data.ts'
 import { Button, Input } from 'antd'
 
 const AppHeader: React.FC<PropsWithChildren<IProps>> = () => {
+  const location = useLocation()
   return (
     <HeaderWapper>
       <div className="content w1100">
@@ -51,7 +52,10 @@ const AppHeader: React.FC<PropsWithChildren<IProps>> = () => {
           <a className="login">登录</a>
         </HeaderRight>
       </div>
-      <div className="divider"></div>
+      <div
+        // className={`divider ${location.pathname.includes('/discover') ? 'hide' : ''}`}
+        className="divider"
+      ></div>
     </HeaderWapper>
   )
 }

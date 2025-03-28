@@ -15,26 +15,36 @@ const routes: RouteObject[] = [
         path: '/discover',
         element: <Navigate to="/discover/recommend" />
       },
-
+      // 推荐
       {
         path: '/discover/recommend',
-        Component: lazy(() => import('@/pages/discover/c-pages/recommend'))
+        Component: lazy(
+          () => import('@/pages/discover/c-pages/recommend/recommend')
+        )
       },
+      // 排行榜
       {
-        path: '/discover/ranking',
-        Component: lazy(() => import('@/pages/discover/c-pages/ranking'))
+        path: '/discover/toplist',
+        Component: lazy(
+          () => import('@/pages/discover/c-pages/toplist/toplist')
+        )
       },
+      // 歌单
       {
-        path: '/discover/songs',
-        Component: lazy(() => import('@/pages/discover/c-pages/songs'))
+        path: '/discover/playlist',
+        Component: lazy(
+          () => import('@/pages/discover/c-pages/playlist/playlist')
+        )
       },
+      // 歌手
       {
         path: '/discover/artist',
-        Component: lazy(() => import('@/pages/discover/c-pages/artist'))
+        Component: lazy(() => import('@/pages/discover/c-pages/artist/artist'))
       },
+      // 新碟上架
       {
-        path: '/discover/news',
-        Component: lazy(() => import('@/pages/discover/c-pages/news'))
+        path: '/discover/album',
+        Component: lazy(() => import('@/pages/discover/c-pages/album/album'))
       }
     ]
   },

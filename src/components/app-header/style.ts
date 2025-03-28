@@ -18,6 +18,10 @@ export const HeaderWapper = styled.div`
     height: 5px;
     background-color: #c20c0c;
   }
+
+  /* .hide {
+    display: none !important;
+  } */
 `
 
 export const HeaderLeft = styled.div`

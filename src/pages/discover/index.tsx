@@ -4,9 +4,11 @@ import React, {
   useContext,
   useEffect
 } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 import { shallowEqual } from 'react-redux'
 import { useAppSelector } from '@/store'
+import { NavWapper } from './style'
+import { dicoverMenu } from '@/common/local-data'
 interface IProps {}
 
 const Discover: React.FC<PropsWithChildren<IProps>> = () => {
@@ -16,12 +18,25 @@ const Discover: React.FC<PropsWithChildren<IProps>> = () => {
     <div>
       {/* <h1>{counter.name}</h1>
       <h1>{counter.count}</h1> */}
+      <NavWapper>
+        <div className="w1100">
+          <div className="nav">
+            {dicoverMenu.map((item) => {
+              return (
+                <div className="nav-item" key={item.title}>
+                  <NavLink
+                    to={item.link}
+                    className={({ isActive }) => (isActive ? 'active' : '')}
+                  >
+                    {item.title}
+                  </NavLink>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </NavWapper>
 
-      <Link to="/discover/recommend">Recommend</Link>
-      <Link to="/discover/ranking">Ranking</Link>
-      <Link to="songs">Songs</Link>
-      <Link to="artist">Artist</Link>
-      <Link to="news">News</Link>
       <Suspense fallback={<div>loading...</div>}>
         <Outlet></Outlet>
       </Suspense>
