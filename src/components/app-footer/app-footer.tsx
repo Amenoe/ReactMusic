@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from 'react'
+import React, { memo, PropsWithChildren } from 'react'
 
 interface IProps {}
 
 const AppFooter: React.FC<PropsWithChildren<IProps>> = () => {
-  return <div>AppFooter</div>
+  return <h1>AppFooter</h1>
 }
 
-export default AppFooter
+export default memo(AppFooter)

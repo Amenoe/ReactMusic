@@ -1,4 +1,5 @@
 import React, {
+  memo,
   PropsWithChildren,
   Suspense,
   useContext,
@@ -44,4 +45,4 @@ const Discover: React.FC<PropsWithChildren<IProps>> = () => {
   )
 }
 
-export default Discover
+export default memo(Discover)

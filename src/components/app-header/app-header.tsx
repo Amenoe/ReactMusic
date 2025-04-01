@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React, { memo, PropsWithChildren } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { HeaderLeft, HeaderRight, HeaderWapper } from './style'
 import { SearchOutlined } from '@ant-design/icons'
@@ -60,4 +60,4 @@ const AppHeader: React.FC<PropsWithChildren<IProps>> = () => {
   )
 }
 
-export default AppHeader
+export default memo(AppHeader)

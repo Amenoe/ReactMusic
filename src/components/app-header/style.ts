@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import sprite_01 from '@/assets/img/sprite_01.png'
 
-const THEME_BACKGROUND_COLOR = '#242221'
+const HEADER_BACKGROUND_COLOR = '#242221'
 
 export const HeaderWapper = styled.div`
   width: 100%;
-  background-color: ${THEME_BACKGROUND_COLOR};
+  background-color: ${HEADER_BACKGROUND_COLOR};
   height: 75px;
   font-size: 14px;
   color: #fff;
@@ -16,7 +16,7 @@ export const HeaderWapper = styled.div`
   }
   .divider {
     height: 5px;
-    background-color: #c20c0c;
+    background-color: ${(props) => props.theme.color.PRIMARY_COLOR};
   }
 
   /* .hide {
@@ -98,7 +98,7 @@ export const HeaderRight = styled.div`
   }
 
   > .creator {
-    background-color: ${THEME_BACKGROUND_COLOR};
+    background-color: ${HEADER_BACKGROUND_COLOR};
     color: #fff;
     margin-left: 12px;
     text-decoration: none;
@@ -111,7 +111,7 @@ export const HeaderRight = styled.div`
       text-decoration: none;
       color: #fff !important;
       border-color: #fff !important;
-      background: ${THEME_BACKGROUND_COLOR} !important;
+      background: ${HEADER_BACKGROUND_COLOR} !important;
     }
   }
 

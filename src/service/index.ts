@@ -4,7 +4,7 @@ import { message } from 'antd'
 export const request = new Request({
   baseURL: import.meta.env.VITE_BASE_API,
   timeout: 10000,
-  showLoading: true,
+  showLoading: false,
   interceptors: {
     requestInterceptor(config) {
       config.headers['Content-Type'] = 'application/json'
@@ -16,10 +16,10 @@ export const request = new Request({
       console.log(1, config)
       // 处理后端返回的code
       if (config.data.code === 200) {
-        message.success('请求成功')
+        // message.success('请求成功')
         return config.data
       } else {
-        message.error('请求失败')
+        // message.error('请求失败')
         return config.data
       }
     },

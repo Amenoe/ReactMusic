@@ -3,11 +3,10 @@ const theme = {
   color: {
     PRIMARY_COLOR: '#c20c0c',
     PRIMARY_COLOR_DARK: '#a40011',
-    'theme-background-color': '#242221',
-    'font-color-light': '#fff',
-    'font-color-grey': '#ccc',
-    'font-color-dark': '#333',
-    'border-color': '#d3d3d3'
+    HEADER_BACKGROUND_COLOR: '#242221', // 头部背景颜色
+    FOOTER_BACKGROUND_COLOR: '#f2f2f2', // 页脚背景颜色
+    MAIN_BACKGROUND_COLOR: '#f5f5f5', // 页面主体背景颜色
+    BORDER_COLOR_BASE: '#d3d3d3'
   },
   mixin: {
     wrapv1: `

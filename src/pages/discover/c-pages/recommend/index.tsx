@@ -1,6 +1,7 @@
-import { request } from '@/service'
-import React, { PropsWithChildren, useEffect, useState } from 'react'
-
+import React, { memo, useEffect, useState } from 'react'
+import TopBanner from '@/components/top-banner'
+import { useAppDispatch } from '@/store'
+import { fetchBannerDataAction } from '@/store/modules/recommend'
 export interface IBannerData {
   banners: IBanners[]
   code: number
@@ -35,22 +36,18 @@ export interface IBanners {
   bannerBizType: string
 }
 const Recommend: React.FC = () => {
+  const dispatch = useAppDispatch()
+
   const [data, setData] = useState<IBanners[]>([])
-  //发送网络请求
-  // useEffect(() => {
-  //   request
-  //     .get<IBannerData>({
-  //       url: '/banner'
-  //     })
-  //     .then((res) => {
-  //       console.log('res', res.banners)
-  //       setData(res.banners)
-  //     })
-  //     .catch((err) => {
-  //       console.error('err', err)
-  //     })
-  // }, [])
-  return <div>123123</div>
+  // 获取Banner数据，会存到store中
+  useEffect(() => {
+    dispatch(fetchBannerDataAction())
+  })
+  return (
+    <div>
+      <TopBanner />
+    </div>
+  )
 }
 
-export default Recommend
+export default memo(Recommend)

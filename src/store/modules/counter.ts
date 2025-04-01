@@ -7,7 +7,12 @@ const counterSlice = createSlice({
     count: 12,
     list: []
   },
-  reducers: {}
+  reducers: {
+    increment: (state) => {
+      state.count++
+    }
+  }
 })
 
-export default counterSlice.reducer
+export const { increment } = counterSlice.actions // 导出actions
+export default counterSlice.reducer // 默认导出
