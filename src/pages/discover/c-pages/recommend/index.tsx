@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from 'react'
 import TopBanner from '@/components/top-banner'
 import { useAppDispatch } from '@/store'
 import { fetchBannerDataAction } from '@/store/modules/recommend'
+import { RecommendLeft, RecommendRight, RecommendWrapper } from './style'
 export interface IBannerData {
   banners: IBanners[]
   code: number
@@ -44,9 +45,13 @@ const Recommend: React.FC = () => {
     dispatch(fetchBannerDataAction())
   })
   return (
-    <div>
+    <RecommendWrapper>
       <TopBanner />
-    </div>
+      <div className="content w980">
+        <RecommendLeft>left</RecommendLeft>
+        <RecommendRight>right</RecommendRight>
+      </div>
+    </RecommendWrapper>
   )
 }
 

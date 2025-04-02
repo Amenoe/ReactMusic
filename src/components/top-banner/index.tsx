@@ -13,8 +13,7 @@ interface IProps {}
 
 const topBanner: React.FC<PropsWithChildren<IProps>> = () => {
   const [currentIndex, setCurrentIndex] = React.useState<number>(0)
-  const [opacity, setOpacity] = React.useState<number>(1)
-  const [transition, setTransition] = React.useState<string>()
+
   const { banners } = useAppSelector(
     (state) => ({
       banners: state.recommend.bannersList
@@ -32,6 +31,7 @@ const topBanner: React.FC<PropsWithChildren<IProps>> = () => {
   }
   // 轮播图切换回调
   const handleAfterChange = (current: number) => {
+    // 没用了
     if (current !== currentIndex) {
       setCurrentIndex(current)
     }
@@ -39,10 +39,6 @@ const topBanner: React.FC<PropsWithChildren<IProps>> = () => {
 
   const handleBeforeChange = (current: number, next: number) => {
     setCurrentIndex(next)
-    // if (current === banners.length - 1) {
-    //   setCurrentIndex(0)
-    // }
-    console.log(current, next)
   }
 
   // 获取模糊的背景图片
