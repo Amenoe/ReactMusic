@@ -1,8 +1,9 @@
 import React, { memo, useEffect, useState } from 'react'
-import TopBanner from '@/components/top-banner'
+import TopBanner from '@/pages/discover/c-pages/recommend/components/top-banner'
 import { useAppDispatch } from '@/store'
 import { fetchBannerDataAction } from '@/store/modules/recommend'
-import { RecommendLeft, RecommendRight, RecommendWrapper } from './style'
+import { RecommendWrapper } from './style'
+import HotRecommend from './components/hot-recommend'
 export interface IBannerData {
   banners: IBanners[]
   code: number
@@ -48,8 +49,10 @@ const Recommend: React.FC = () => {
     <RecommendWrapper>
       <TopBanner />
       <div className="content w980">
-        <RecommendLeft>left</RecommendLeft>
-        <RecommendRight>right</RecommendRight>
+        <div className="left">
+          <HotRecommend />
+        </div>
+        <div className="right">right</div>
       </div>
     </RecommendWrapper>
   )

@@ -116,6 +116,7 @@ export const HeaderRight = styled.div`
   }
 
   > .login {
+    color: #ccc;
     margin-left: 20px;
     cursor: pointer;
   }

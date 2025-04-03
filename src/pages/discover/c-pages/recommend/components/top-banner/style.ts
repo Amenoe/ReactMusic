@@ -78,6 +78,7 @@ export const BannerControl = styled.div`
   left: 0;
   right: 0;
   top: 50%;
+  margin-top: -33px;
   transform: translateY(-50%);
   .btn {
     position: absolute;

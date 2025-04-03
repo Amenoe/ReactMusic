@@ -34,12 +34,11 @@ li {
 }
 
 a {
+  cursor: pointer;
   text-decoration: none;
-  color: #ccc;
 }
 
 a:hover {
-  color: #ccc;
   text-decoration: underline;
 }
 
@@ -207,4 +206,9 @@ button {
 
 .icon-small {
   background: url(../img/icon2.png) no-repeat 0 9999px;
+}
+
+.line {
+  margin: 0 13px;
+  color: #ccc;
 }

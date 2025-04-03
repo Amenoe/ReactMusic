@@ -6,16 +6,17 @@ export const RecommendWrapper = styled.div`
     display: flex;
     border: 1px solid ${(props) => props.theme.color.BORDER_COLOR_BASE};
     background-image: url(${wrapBg});
-    min-height: 700px;
+    min-height: 1200px;
     box-sizing: border-box;
+    > .left {
+      box-sizing: border-box;
+      width: 729px;
+      padding: 20px;
+    }
+    > .right {
+      box-sizing: border-box;
+      width: 250px;
+      margin-left: 1px;
+    }
   }
-`
-
-export const RecommendLeft = styled.div`
-  width: 729px;
-  padding: 20px;
-`
-export const RecommendRight = styled.div`
-  width: 250px;
-  margin-left: 1px;
 `
