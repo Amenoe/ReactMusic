@@ -4,8 +4,6 @@ export const AreaTopWrapper = styled.div`
   width: 100%;
   .top-content {
     height: 33px;
-    display: flex;
-    justify-content: space-between;
     padding: 0 10px 0 34px;
     background-position: -225px -156px;
     border-bottom: 2px solid #c10d0c;
@@ -29,16 +27,28 @@ export const AreaTopWrapper = styled.div`
       margin: 9px 0 0 20px;
       .item {
         line-height: 14px;
+
+        &:last-child {
+          .line {
+            display: none;
+          }
+        }
       }
     }
     /* 二级标题 */
     .sub {
+      float: left;
+      color: #666;
+      margin: 9px 0 0 20px;
     }
   }
 
   .right {
+    float: right;
     margin-top: 9px;
-    color: #666;
+    > a {
+      color: #666;
+    }
 
     > i {
       display: inline-block;

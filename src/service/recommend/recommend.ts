@@ -1,5 +1,5 @@
-import { IBannerData } from '@/pages/discover/c-pages/recommend'
-import { request } from './index'
+import { request } from '../index'
+import { IBannerData, IHotRecommendData } from './types'
 
 export function getBanners() {
   return request.get<IBannerData>({
@@ -8,8 +8,8 @@ export function getBanners() {
 }
 
 // 热门推荐
-export function getHotRecommends(limit: any) {
-  return request.get({
+export function getHotRecommends(limit?: number) {
+  return request.get<IHotRecommendData>({
     url: '/personalized',
     params: {
       limit

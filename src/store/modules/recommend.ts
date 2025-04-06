@@ -1,49 +1,33 @@
-import { getBanners } from '@/service/recommend'
+import { getBanners, getHotRecommends } from '@/service/recommend/recommend'
+import type { IBanners, IHotRecommend } from '@/service/recommend/types'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-export interface IBanners {
-  imageUrl: string
-  targetId: number
-  adid: null
-  targetType: number
-  titleColor: string
-  typeTitle: string
-  url: null | string
-  exclusive: boolean
-  monitorImpress: null
-  monitorClick: null
-  monitorType: null
-  monitorImpressList: null
-  monitorClickList: null
-  monitorBlackList: null
-  extMonitor: null
-  extMonitorInfo: null
-  adSource: null
-  adLocation: null
-  adDispatchJson: null
-  encodeId: string
-  program: null
-  event: null
-  video: null
-  song: null
-  scm: string
-  bannerBizType: string
-}
 
 interface RecommendState {
   bannersList: IBanners[]
+  hotRecommendList: IHotRecommend[]
 }
 
 const initialState: RecommendState = {
-  bannersList: []
+  bannersList: [],
+  hotRecommendList: []
 }
 
 // 获取banner数据(发送异步请求),需要在页面通过dispatch调用
-export const fetchBannerDataAction = createAsyncThunk(
+export const fetchBannerAction = createAsyncThunk(
   'fetchBannerData',
   async (arg, { dispatch }) => {
     const res = await getBanners()
     dispatch(changeBannersAction(res.banners))
     return res.banners
+  }
+)
+
+export const fetchHotRecommendAction = createAsyncThunk(
+  'fetchHotRecommendData',
+  async (arg, { dispatch }) => {
+    const res = await getHotRecommends(8)
+    dispatch(changeHotRecommendAction(res.result))
+    return res.result
   }
 )
 
@@ -53,21 +37,25 @@ const recommendSilce = createSlice({
   reducers: {
     changeBannersAction(state, { payload }) {
       state.bannersList = payload
+    },
+    changeHotRecommendAction(state, { payload }) {
+      state.hotRecommendList = payload
     }
   }
   //   extraReducers: (builder) => {
   //     builder
-  //       .addCase(fetchBannerDataAction.pending, (state, action) => {
+  //       .addCase(fetchBannerAction.pending, (state, action) => {
   //         console.log('pending', action.payload)
   //       })
-  //       .addCase(fetchBannerDataAction.fulfilled, (state, action) => {
+  //       .addCase(fetchBannerAction.fulfilled, (state, action) => {
   //         state.bannersList = action.payload
   //       })
-  //       .addCase(fetchBannerDataAction.rejected, (state, action) => {
+  //       .addCase(fetchBannerAction.rejected, (state, action) => {
   //         console.log('rejected', action.payload)
   //       })
   //   }
 })
 
-export const { changeBannersAction } = recommendSilce.actions
+export const { changeBannersAction, changeHotRecommendAction } =
+  recommendSilce.actions
 export default recommendSilce.reducer

@@ -1,27 +1,30 @@
 import React, { PropsWithChildren, memo } from 'react'
 import { HotListWrapper } from './styles'
 import AreaTop from '@/components/area-top'
+import { shallowEqual, useSelector } from 'react-redux'
+import { useAppSelector } from '@/store'
+import SongsItem from '@/components/songs-item'
 
 interface IProps {}
 
 const HotRecommend: React.FC<PropsWithChildren<IProps>> = () => {
+  const hotRecommendList = useAppSelector(
+    (state) => state.recommend.hotRecommendList,
+    shallowEqual
+  )
   return (
     <HotListWrapper>
       <AreaTop
         title="热门推荐"
-        leftSlot={
-          <div className="tab">
-            {['华语', '流行', '摇滚', '民谣', '电子'].map((item, index) => {
-              return (
-                <span key={item} className="item">
-                  <a>{item}</a>
-                  {index === 4 ? '' : <span className="line">|</span>}
-                </span>
-              )
-            })}
-          </div>
-        }
+        keyWord={['华语', '流行', '摇滚', '民谣', '电子']}
+        moreLink="/discover"
       ></AreaTop>
+
+      <div className="hot-recommend">
+        {hotRecommendList.map((item) => {
+          return <SongsItem key={item.id} info={item}></SongsItem>
+        })}
+      </div>
     </HotListWrapper>
   )
 }
