@@ -17,7 +17,7 @@ jobs:
           node-version: '16' # 选择适合你项目的 Node.js 版本
 
       - name: Install Dependencies
-        run: npm run install # 使用 ci 而不是 install 以确保一致性
+        run: npm install # 使用 ci 而不是 install 以确保一致性
 
       - name: Build
         run: npm run build
