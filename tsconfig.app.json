@@ -30,5 +30,5 @@
       // 你可以根据需要添加更多别名
     }
   },
-  "include": ["src"]
+  "include": ["src", "theme.d.ts"]
 }
