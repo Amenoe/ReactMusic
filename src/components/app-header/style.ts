@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 import sprite_01 from '@/assets/img/sprite_01.png'
 
-const HEADER_BACKGROUND_COLOR = '#242221'
+// 使用主题中的颜色，不再需要单独定义
+// const HEADER_BACKGROUND_COLOR = '#242221'
 
 export const HeaderWapper = styled.div`
   width: 100%;
-  background-color: ${HEADER_BACKGROUND_COLOR};
+  background-color: ${(props) => props.theme.color.HEADER_BACKGROUND_COLOR};
   height: 75px;
   font-size: 14px;
   color: #fff;
@@ -98,7 +99,7 @@ export const HeaderRight = styled.div`
   }
 
   > .creator {
-    background-color: ${HEADER_BACKGROUND_COLOR};
+    background-color: ${(props) => props.theme.color.HEADER_BACKGROUND_COLOR};
     color: #fff;
     margin-left: 12px;
     text-decoration: none;
@@ -111,7 +112,8 @@ export const HeaderRight = styled.div`
       text-decoration: none;
       color: #fff !important;
       border-color: #fff !important;
-      background: ${HEADER_BACKGROUND_COLOR} !important;
+      background: ${(props) =>
+        props.theme.color.HEADER_BACKGROUND_COLOR} !important;
     }
   }
 
