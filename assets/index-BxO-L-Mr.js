@@ -1,0 +1,1 @@
+import{j as s}from"./index-btciW5Wo.js";import{A as t}from"./index-CSMdlFfE.js";const i=()=>s.jsx("div",{children:s.jsx(t,{title:"热门推荐",leftSlot:s.jsx("div",{className:"sub",children:"123"})})});export{i as default};
