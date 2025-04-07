@@ -4,6 +4,12 @@ on:
   push:
     branches: [main] # 设置要触发部署的分支，根据你的主分支名称调整
 
+# 设置 GITHUB_TOKEN 的权限
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -14,10 +20,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # 选择适合你项目的 Node.js 版本
+          node-version: '18' # 使用更新的 Node.js 版本
 
       - name: Install Dependencies
-        run: npm install # 使用 ci 而不是 install 以确保一致性
+        run: npm install # 使用 install 而不是 ci
 
       - name: Build
         run: npm run build
@@ -27,6 +33,7 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist # 你的构建输出目录，如果使用 Vite 可能是 dist
+          folder: dist # 你的构建输出目录
           branch: gh-pages # 部署到的分支
           clean: true # 清理旧文件
+          token: ${{ secrets.GITHUB_TOKEN }} # 使用 GitHub 提供的 token
