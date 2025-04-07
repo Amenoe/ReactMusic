@@ -17,6 +17,11 @@ export default defineConfig(({ mode }) => {
         assets: path.resolve(__dirname, './src/assets')
       }
     },
+    build: {
+      commonjsOptions: {
+        transformMixedEsModules: true
+      }
+    },
     server: {
       port: 8011,
       proxy: {

@@ -14,7 +14,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # 选择适合你项目的 Node.js 版本
+          node-version: '18' # 选择适合你项目的 Node.js 版本
 
       - name: Install Dependencies
         run: npm install # 使用 ci 而不是 install 以确保一致性
