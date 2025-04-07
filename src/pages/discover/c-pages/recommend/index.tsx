@@ -7,6 +7,7 @@ import {
 } from '@/store/modules/recommend'
 import { RecommendWrapper } from './style'
 import HotRecommend from './components/hot-recommend'
+import NewAlbum from './components/new-album'
 
 const Recommend: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -22,6 +23,7 @@ const Recommend: React.FC = () => {
       <div className="content w980">
         <div className="left">
           <HotRecommend />
+          <NewAlbum />
         </div>
         <div className="right">right</div>
       </div>

@@ -8,6 +8,7 @@ interface IProps {
   keyWord?: string[]
   moreText?: string
   moreLink?: string
+  titleLink?: string
 }
 
 const AreaTop: React.FC<PropsWithChildren<IProps>> = (props) => {
@@ -17,13 +18,16 @@ const AreaTop: React.FC<PropsWithChildren<IProps>> = (props) => {
     rightSlot,
     keyWord = [],
     moreText = '更多',
-    moreLink = '/'
+    moreLink = '/',
+    titleLink = ''
   } = props
   return (
     <AreaTopWrapper>
       <div className="top-content sprite_02">
         <div className="left">
-          <a className="title">{title}</a>
+          <a className="title" href={titleLink}>
+            {title}
+          </a>
           {leftSlot ?? (
             <div className="tab">
               {keyWord.map((item) => {

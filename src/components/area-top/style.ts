@@ -15,6 +15,7 @@ export const AreaTopWrapper = styled.div`
       font-size: 20px;
       font-weight: normal;
       line-height: 28px;
+      color: #333;
 
       &:hover {
         text-decoration: none;

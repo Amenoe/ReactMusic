@@ -1,0 +1,32 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main] # 设置要触发部署的分支，根据你的主分支名称调整
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # 选择适合你项目的 Node.js 版本
+
+      - name: Install Dependencies
+        run: pnpm ci # 使用 ci 而不是 install 以确保一致性
+
+      - name: Build
+        run: pnpm build
+        env:
+          CI: false # 防止因警告而构建失败
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # 你的构建输出目录，如果使用 Vite 可能是 dist
+          branch: gh-pages # 部署到的分支
+          clean: true # 清理旧文件
