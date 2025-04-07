@@ -17,10 +17,10 @@ jobs:
           node-version: '16' # 选择适合你项目的 Node.js 版本
 
       - name: Install Dependencies
-        run: pnpm ci # 使用 ci 而不是 install 以确保一致性
+        run: npm ci # 使用 ci 而不是 install 以确保一致性
 
       - name: Build
-        run: pnpm build
+        run: npm run build
         env:
           CI: false # 防止因警告而构建失败
 
