@@ -3,7 +3,7 @@ import { HotListWrapper } from './styles'
 import AreaTop from '@/components/area-top'
 import { shallowEqual, useSelector } from 'react-redux'
 import { useAppSelector } from '@/store'
-import SongsItem from '@/components/songs-item'
+import SongItem from '@/components/song-item'
 
 interface IProps {}
 
@@ -22,7 +22,7 @@ const HotRecommend: React.FC<PropsWithChildren<IProps>> = () => {
 
       <div className="hot-recommend">
         {hotRecommendList.map((item) => {
-          return <SongsItem key={item.id} info={item}></SongsItem>
+          return <SongItem key={item.id} info={item}></SongItem>
         })}
       </div>
     </HotListWrapper>

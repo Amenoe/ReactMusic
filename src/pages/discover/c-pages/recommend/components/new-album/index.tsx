@@ -12,6 +12,7 @@ import { Carousel } from 'antd'
 import { shallowEqual } from 'react-redux'
 import { getImageUrl } from '@/utils/format'
 import { useDebounceFn, useThrottleFn } from 'ahooks'
+import AlbumItem from '@/components/album-item'
 
 interface IProps {}
 
@@ -58,24 +59,30 @@ const newAlbum: React.FC<PropsWithChildren<IProps>> = () => {
           <Carousel ref={CarouselRef} dots={false} speed={1500} infinite>
             {[0, 1].map((item) => {
               return (
-                <div className="album-list" key={item}>
-                  {newAlbumList.slice(item * 5, (item + 1) * 5).map((item) => {
-                    return (
-                      <div className="album-item" key={item.id}>
-                        <div className="cover">
-                          <img
-                            src={getImageUrl(item.picUrl, 100, 100)}
-                            alt=""
-                          />
-                          <a href="" className="msk sprite_cover"></a>
-                        </div>
-                        <div className="info">
-                          <p className="name">{item.name}</p>
-                          <p className="artist">{item.artist.name}</p>
-                        </div>
-                      </div>
-                    )
-                  })}
+                <div key={item}>
+                  <div className="album-list ">
+                    {newAlbumList
+                      .slice(item * 5, (item + 1) * 5)
+                      .map((item) => {
+                        return (
+                          // <div className="album-item" key={item.id}>
+                          //   <div className="cover">
+                          //     <img
+                          //       src={getImageUrl(item.picUrl, 100, 100)}
+                          //       alt=""
+                          //     />
+                          //     <a href="" className="msk sprite_cover "></a>
+                          //     <i className="play sprite_icon "></i>
+                          //   </div>
+                          //   <div className="info">
+                          //     <p className="name">{item.name}</p>
+                          //     <p className="artist">{item.artist.name}</p>
+                          //   </div>
+                          // </div>
+                          <AlbumItem info={item} key={item.id}></AlbumItem>
+                        )
+                      })}
+                  </div>
                 </div>
               )
             })}

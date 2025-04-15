@@ -26,7 +26,7 @@ const initialState: RecommendState = {
 // 第一个参数为Action Type 标识 ：它会被用来生成三个不同的 action type，可以在redux devtools中查看
 export const fetchBannerAction = createAsyncThunk(
   'fetchBannerData',
-  async (arg, { dispatch }) => {
+  async (_, { dispatch }) => {
     const res = await getBanners()
     dispatch(changeBannersAction(res.banners))
     return res.banners
@@ -36,7 +36,7 @@ export const fetchBannerAction = createAsyncThunk(
 // 获取热门推荐数据
 export const fetchHotRecommendAction = createAsyncThunk(
   'fetchHotRecommendData',
-  async (arg, { dispatch }) => {
+  async (_, { dispatch }) => {
     const res = await getHotRecommends(8)
     dispatch(changeHotRecommendAction(res.result))
     return res.result
@@ -46,7 +46,7 @@ export const fetchHotRecommendAction = createAsyncThunk(
 // 获取新碟上架数据
 export const fetchNewAlbumAction = createAsyncThunk(
   'fetchNewAlbumData',
-  async (arg, { dispatch }) => {
+  async (_, { dispatch }) => {
     const res = await getNewAlbums()
     dispatch(changeNewAlbumAction(res.albums))
     return res.albums

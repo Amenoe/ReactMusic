@@ -14,6 +14,7 @@ declare module 'styled-components' {
     mixin: {
       wrapv1: string
       wrapv2: string
+      textNoWrap: string
     }
   }
 }
