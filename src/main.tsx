@@ -14,7 +14,7 @@ createRoot(document.getElementById('root')!).render(
   // <StrictMode>
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <BrowserRouter basename={import.meta.env.VITE_BASE_URL}>
         <App />
       </BrowserRouter>
     </ThemeProvider>

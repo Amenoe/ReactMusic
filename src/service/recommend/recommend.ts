@@ -8,7 +8,7 @@ export function getBanners() {
 }
 
 // 热门推荐
-export function getHotRecommends(limit?: number) {
+export function getHotRecommends(limit = 30) {
   return request.get<IHotRecommendData>({
     url: '/personalized',
     params: {

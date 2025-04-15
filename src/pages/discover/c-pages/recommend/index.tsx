@@ -3,7 +3,8 @@ import TopBanner from '@/pages/discover/c-pages/recommend/components/top-banner'
 import { useAppDispatch } from '@/store'
 import {
   fetchBannerAction,
-  fetchHotRecommendAction
+  fetchHotRecommendAction,
+  fetchNewAlbumAction
 } from '@/store/modules/recommend'
 import { RecommendWrapper } from './style'
 import HotRecommend from './components/hot-recommend'
@@ -16,6 +17,7 @@ const Recommend: React.FC = () => {
   useEffect(() => {
     dispatch(fetchBannerAction())
     dispatch(fetchHotRecommendAction())
+    dispatch(fetchNewAlbumAction())
   }, [])
   return (
     <RecommendWrapper>
