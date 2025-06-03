@@ -51,6 +51,10 @@ export interface IHotRecommendData {
 }
 
 // 新碟上架
+export interface INewAlbum {
+  code: number
+  albums: INewAlbumData[]
+}
 export interface INewAlbumData {
   name: string
   id: number
@@ -94,4 +98,59 @@ export interface Artist {
   picId_str?: string
   img1v1Id_str: string
   transNames?: string[]
+}
+
+// topList
+
+export interface ITopListData {
+  code: number
+  list: ITopList[]
+}
+export interface ITopList {
+  subscribers: any[]
+  subscribed: null
+  creator: null
+  artists: null
+  tracks: null
+  updateFrequency: string
+  backgroundCoverId: number
+  backgroundCoverUrl: null
+  titleImage: number
+  coverText: null
+  titleImageUrl: null
+  coverImageUrl: null
+  iconImageUrl: null
+  englishTitle: null
+  opRecommend: boolean
+  recommendInfo: null
+  socialPlaylistCover: null
+  tsSongCount: number
+  algType: null
+  cloudTrackCount: number
+  subscribedCount: number
+  highQuality: boolean
+  specialType: number
+  coverImgId: number
+  newImported: boolean
+  anonimous: boolean
+  updateTime: number
+  coverImgUrl: string
+  trackCount: number
+  commentThreadId: string
+  trackUpdateTime: number
+  totalDuration: number
+  playCount: number
+  trackNumberUpdateTime: number
+  privacy: number
+  adType: number
+  createTime: number
+  ordered: boolean
+  description: null | string
+  status: number
+  tags: string[]
+  userId: number
+  name: string
+  id: number
+  coverImgId_str: string
+  ToplistType?: string
 }

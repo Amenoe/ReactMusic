@@ -1,25 +1,30 @@
 import {
   getBanners,
   getHotRecommends,
-  getNewAlbums
-} from '@/service/recommend/recommend'
+  getNewAlbums,
+  getPlayListDetail
+} from '@/service/recommend'
 import type {
   IBanners,
   IHotRecommend,
   INewAlbumData
 } from '@/service/recommend/types'
+import { getLocalStorage } from '@/utils/storage'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 interface RecommendState {
   bannersList: IBanners[]
   hotRecommendList: IHotRecommend[]
   newAlbumList: INewAlbumData[]
+  playList: any[]
 }
 
+// 初始化state
 const initialState: RecommendState = {
   bannersList: [],
   hotRecommendList: [],
-  newAlbumList: []
+  newAlbumList: [],
+  playList: []
 }
 
 // 获取banner数据(发送异步请求),需要在页面通过dispatch调用
@@ -53,7 +58,27 @@ export const fetchNewAlbumAction = createAsyncThunk(
   }
 )
 
-const recommendSilce = createSlice({
+// 获取歌单详情(飙升榜,新歌榜,原创榜)
+export const fetchPlayListDetailAction = createAsyncThunk(
+  'fetchPlayListDetailData',
+  async (_, { dispatch }) => {
+    getLocalStorage('topIdList').forEach(async (item: any) => {
+      if (item.name === '飙升榜') {
+        const res = await getPlayListDetail(item.id)
+        dispatch(changePlayListAction(res.playlist))
+      }
+      if (item.name === '新歌榜') {
+        const res1 = await getPlayListDetail(item.id)
+      }
+      if (item.name === '原创榜') {
+        const res2 = await getPlayListDetail(item.id)
+      }
+    })
+    return null
+  }
+)
+
+const recommendSlice = createSlice({
   name: 'recommend',
   initialState,
   reducers: {
@@ -65,6 +90,9 @@ const recommendSilce = createSlice({
     },
     changeNewAlbumAction(state, { payload }) {
       state.newAlbumList = payload
+    },
+    changePlayListAction(state, { payload }) {
+      state.playList = payload
     }
   }
   //   extraReducers: (builder) => {
@@ -84,6 +112,7 @@ const recommendSilce = createSlice({
 export const {
   changeBannersAction,
   changeHotRecommendAction,
-  changeNewAlbumAction
-} = recommendSilce.actions
-export default recommendSilce.reducer
+  changeNewAlbumAction,
+  changePlayListAction
+} = recommendSlice.actions
+export default recommendSlice.reducer

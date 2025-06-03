@@ -64,23 +64,7 @@ const newAlbum: React.FC<PropsWithChildren<IProps>> = () => {
                     {newAlbumList
                       .slice(item * 5, (item + 1) * 5)
                       .map((item) => {
-                        return (
-                          // <div className="album-item" key={item.id}>
-                          //   <div className="cover">
-                          //     <img
-                          //       src={getImageUrl(item.picUrl, 100, 100)}
-                          //       alt=""
-                          //     />
-                          //     <a href="" className="msk sprite_cover "></a>
-                          //     <i className="play sprite_icon "></i>
-                          //   </div>
-                          //   <div className="info">
-                          //     <p className="name">{item.name}</p>
-                          //     <p className="artist">{item.artist.name}</p>
-                          //   </div>
-                          // </div>
-                          <AlbumItem info={item} key={item.id}></AlbumItem>
-                        )
+                        return <AlbumItem info={item} key={item.id}></AlbumItem>
                       })}
                   </div>
                 </div>

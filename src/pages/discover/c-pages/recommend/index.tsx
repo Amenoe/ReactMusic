@@ -4,11 +4,13 @@ import { useAppDispatch } from '@/store'
 import {
   fetchBannerAction,
   fetchHotRecommendAction,
-  fetchNewAlbumAction
+  fetchNewAlbumAction,
+  fetchPlayListDetailAction
 } from '@/store/modules/recommend'
 import { RecommendWrapper } from './style'
 import HotRecommend from './components/hot-recommend'
 import NewAlbum from './components/new-album'
+import PlayList from './components/play-list'
 
 const Recommend: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -18,6 +20,7 @@ const Recommend: React.FC = () => {
     dispatch(fetchBannerAction())
     dispatch(fetchHotRecommendAction())
     dispatch(fetchNewAlbumAction())
+    dispatch(fetchPlayListDetailAction())
   }, [])
   return (
     <RecommendWrapper>
@@ -26,6 +29,7 @@ const Recommend: React.FC = () => {
         <div className="left">
           <HotRecommend />
           <NewAlbum />
+          <PlayList />
         </div>
         <div className="right">right</div>
       </div>

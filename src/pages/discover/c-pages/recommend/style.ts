@@ -9,6 +9,9 @@ export const RecommendWrapper = styled.div`
     min-height: 1200px;
     box-sizing: border-box;
     > .left {
+      display: flex;
+      flex-direction: column;
+      row-gap: 35px;
       box-sizing: border-box;
       width: 729px;
       padding: 20px;

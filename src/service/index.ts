@@ -1,4 +1,4 @@
-import Request from '@/service/request'
+import Request from '@/utils/request'
 import { message } from 'antd'
 
 export const request = new Request({

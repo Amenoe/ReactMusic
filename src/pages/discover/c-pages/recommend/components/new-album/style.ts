@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const AlbumWrapper = styled.div`
-  margin-top: 35px;
   > .content {
     height: 186px;
     margin: 20px 0 37px;

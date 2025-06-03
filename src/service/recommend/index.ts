@@ -1,5 +1,10 @@
 import { request } from '../index'
-import { IBannerData, IHotRecommendData } from './types'
+import {
+  IBannerData,
+  IHotRecommendData,
+  INewAlbum,
+  ITopListData
+} from './types'
 
 export function getBanners() {
   return request.get<IBannerData>({
@@ -19,8 +24,25 @@ export function getHotRecommends(limit = 30) {
 
 // 首页下的新碟上架
 export function getNewAlbums() {
-  return request.get({
+  return request.get<INewAlbum>({
     url: '/album/newest'
+  })
+}
+
+// 首页下的榜单（其中id需要通过所有榜单接口获取）
+export function getPlayListDetail(idx: number) {
+  return request.get({
+    url: '/playlist/detail',
+    params: {
+      id: idx
+    }
+  })
+}
+
+// 所有榜单（全局调用一次，缓存歌单id）
+export function getTopList() {
+  return request.get<ITopListData>({
+    url: '/toplist'
   })
 }
 

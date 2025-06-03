@@ -7,13 +7,17 @@ import React, {
 } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { shallowEqual } from 'react-redux'
-import { useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
 import { NavWapper } from './style'
 import { dicoverMenu } from '@/common/local-data'
+import { fetchTopListAction } from '@/store/modules/common'
 interface IProps {}
 
 const Discover: React.FC<PropsWithChildren<IProps>> = () => {
-  // const counter = useAppSelector((state) => state.counter, shallowEqual)
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(fetchTopListAction())
+  }, [])
 
   return (
     <div>
