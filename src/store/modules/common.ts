@@ -1,41 +1,23 @@
 import { getTopList } from '@/service/recommend'
-import { ITopListData } from '@/service/recommend/types'
+import { ITopList, ITopListData } from '@/service/recommend/types'
 import { setLocalStorage } from '@/utils/storage'
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { StateCreator } from 'zustand'
 
-interface ICommonState {
-  topList: ITopListData[]
+export interface ICommonState {
+  topList: ITopList[]
+  fetchTopList: () => Promise<void>
 }
 
-const initialState: ICommonState = {
-  topList: []
-}
-
-export const fetchTopListAction = createAsyncThunk(
-  'fetchTopList',
-  async (_, { dispatch }) => {
+export const commonStore: StateCreator<ICommonState> = (set) => ({
+  topList: [],
+  fetchTopList: async () => {
     const res = await getTopList()
-    dispatch(changeTopListAction(res.list))
-    return res.list
-  }
-)
+    set({ topList: res.list })
+    const data = res.list.map((item: ITopList) => ({
+      name: item.name,
+      id: item.id
+    }))
 
-const commonSilce = createSlice({
-  name: 'common',
-  initialState,
-  reducers: {
-    changeTopListAction(state, { payload }) {
-      state.topList = payload
-      const data = payload.map((item: any) => {
-        return {
-          name: item.name,
-          id: item.id
-        }
-      })
-      setLocalStorage('topIdList', data)
-    }
+    setLocalStorage('topIdList', data)
   }
 })
-
-export const { changeTopListAction } = commonSilce.actions
-export default commonSilce.reducer

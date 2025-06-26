@@ -1,28 +1,20 @@
-import React, {
-  memo,
-  PropsWithChildren,
-  Suspense,
-  useContext,
-  useEffect
-} from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
-import { shallowEqual } from 'react-redux'
-import { useAppDispatch, useAppSelector } from '@/store'
+import React, { memo, PropsWithChildren, Suspense, useEffect } from 'react'
+import { NavLink, Outlet } from 'react-router-dom'
 import { NavWapper } from './style'
 import { dicoverMenu } from '@/common/local-data'
-import { fetchTopListAction } from '@/store/modules/common'
+import { useStore } from '@/store'
+
 interface IProps {}
 
 const Discover: React.FC<PropsWithChildren<IProps>> = () => {
-  const dispatch = useAppDispatch()
+  const { fetchTopList } = useStore()
+
   useEffect(() => {
-    dispatch(fetchTopListAction())
+    fetchTopList()
   }, [])
 
   return (
     <div>
-      {/* <h1>{counter.name}</h1>
-      <h1>{counter.count}</h1> */}
       <NavWapper>
         <div className="w1100">
           <div className="nav">

@@ -8,7 +8,7 @@ import '@ant-design/v5-patch-for-react-19'
 
 import { Provider } from 'react-redux'
 import App from '@/App'
-import store from './store'
+import store from './store_legacy'
 
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>

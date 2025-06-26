@@ -1,27 +1,21 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect } from 'react'
 import TopBanner from '@/pages/discover/c-pages/recommend/components/top-banner'
-import { useAppDispatch } from '@/store'
-import {
-  fetchBannerAction,
-  fetchHotRecommendAction,
-  fetchNewAlbumAction,
-  fetchPlayListDetailAction
-} from '@/store/modules/recommend'
 import { RecommendWrapper } from './style'
 import HotRecommend from './components/hot-recommend'
 import NewAlbum from './components/new-album'
 import PlayList from './components/play-list'
+import { useStore } from '@/store'
 
 const Recommend: React.FC = () => {
-  const dispatch = useAppDispatch()
+  const { fetchBanners, fetchHotRecommend, fetchNewAlbum, fetchPlayListDetail } = useStore()
 
-  // 获取Banner数据，会存到store中
   useEffect(() => {
-    dispatch(fetchBannerAction())
-    dispatch(fetchHotRecommendAction())
-    dispatch(fetchNewAlbumAction())
-    dispatch(fetchPlayListDetailAction())
+    fetchBanners()
+    fetchHotRecommend()
+    fetchNewAlbum()
+    fetchPlayListDetail()
   }, [])
+
   return (
     <RecommendWrapper>
       <TopBanner />

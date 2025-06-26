@@ -1,27 +1,22 @@
-import { useAppSelector } from '@/store'
-import { Carousel } from 'antd'
 import React, { ComponentRef, memo, PropsWithChildren, useRef } from 'react'
+import { Carousel } from 'antd'
 import {
   BannerControl,
   BannerLeftWrapper,
   BannerRightWrapper,
   BannerWrapper
 } from './style'
-import { shallowEqual } from 'react-redux'
+import { useStore } from '@/store'
 
 interface IProps {}
 
 const topBanner: React.FC<PropsWithChildren<IProps>> = () => {
   const [currentIndex, setCurrentIndex] = React.useState<number>(0)
+  const { bannersList } = useStore()
 
-  const { banners } = useAppSelector(
-    (state) => ({
-      banners: state.recommend.bannersList
-    }),
-    shallowEqual
-  )
   // 绑定轮播图组件，需要定义类型
   const CarouselRef = useRef<ComponentRef<typeof Carousel>>(null)
+
   // 轮播图切换方法
   const handlePrevClick = () => {
     CarouselRef.current?.prev()
@@ -29,23 +24,17 @@ const topBanner: React.FC<PropsWithChildren<IProps>> = () => {
   const handleNextClick = () => {
     CarouselRef.current?.next()
   }
-  // 轮播图切换回调
-  const handleAfterChange = (current: number) => {
-    // 没用了
-    if (current !== currentIndex) {
-      setCurrentIndex(current)
-    }
-  }
 
+  // 轮播图切换回调
   const handleBeforeChange = (current: number, next: number) => {
     setCurrentIndex(next)
   }
 
   // 获取模糊的背景图片
   const bgimage =
-    banners &&
-    banners[currentIndex] &&
-    banners[currentIndex]?.imageUrl + '?imageView&blur=40x20'
+    bannersList &&
+    bannersList[currentIndex] &&
+    bannersList[currentIndex]?.imageUrl + '?imageView&blur=40x20'
 
   return (
     <div>
@@ -59,13 +48,12 @@ const topBanner: React.FC<PropsWithChildren<IProps>> = () => {
               speed={1000}
               effect="fade"
               ref={CarouselRef}
-              afterChange={handleAfterChange}
               beforeChange={handleBeforeChange}
             >
-              {banners.map((item) => {
+              {bannersList.map((item) => {
                 return (
                   <div className="banner-item" key={item.imageUrl}>
-                    <img className="image" src={item.imageUrl}></img>
+                    <img className="image" src={item.imageUrl} alt={item.typeTitle} />
                   </div>
                 )
               })}
@@ -82,8 +70,8 @@ const topBanner: React.FC<PropsWithChildren<IProps>> = () => {
             <span className="shadowr"></span>
           </BannerRightWrapper>
           <BannerControl>
-            <div className="btn" onClick={() => handlePrevClick()}></div>
-            <div className="btn" onClick={() => handleNextClick()}></div>
+            <div className="btn" onClick={handlePrevClick}></div>
+            <div className="btn" onClick={handleNextClick}></div>
           </BannerControl>
         </div>
       </BannerWrapper>
