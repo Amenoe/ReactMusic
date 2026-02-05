@@ -1,5 +1,5 @@
 import AreaTop from '@/components/area-top'
-import React, { PropsWithChildren, memo } from 'react'
+import React, { PropsWithChildren, memo, useState } from 'react'
 import { PlayListWrapper } from './style'
 import { useStore } from '@/store'
 
@@ -7,6 +7,10 @@ interface IProps {}
 
 const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
   const playList = useStore((state) => state.playList)
+  const [curIndex, setCurIndex] = useState(-1)
+  const setShowOper = (index: number) => {
+    setCurIndex(index)
+  }
   return (
     <PlayListWrapper>
       <AreaTop
@@ -17,7 +21,7 @@ const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
       <div className="content">
         {playList.map((item, index) => {
           return (
-            <div className="list">
+            <div className="list" key={item.name}>
               <div className="top">
                 <div className={`top-img${index + 1}`}></div>
                 <div className="top-content">
@@ -29,16 +33,24 @@ const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
                 </div>
               </div>
               <div className="list-content">
-                {item.data.tracks.slice(0, 10).map((item: any, index) => {
+                {item.data.tracks.slice(0, 10).map((track: any, i) => {
                   return (
-                    <div className="item" key={item.id}>
-                      <div className={`no ${index < 3 ? 'no-top' : ''}`}>
-                        {index + 1}
+                    <div
+                      className="item"
+                      key={track.id}
+                      onMouseOver={() => setShowOper(track.id + index + i)}
+                      onMouseOut={() => setShowOper(-1)}
+                    >
+                      <div className={`no ${i < 3 ? 'no-top' : ''}`}>
+                        {i + 1}
                       </div>
-                      <div className="title">{item.name}</div>
-                      <div className="item-btn">
-                        <div className="play"></div>
-                        <div className="collect"></div>
+                      <div className="title">{track.name}</div>
+                      <div
+                        className={`oper ${track.id + index + i === curIndex ? 'show' : ''}`}
+                      >
+                        <a className="play_item"></a>
+                        <a className="add_item"></a>
+                        <a className="collect_item"></a>
                       </div>
                     </div>
                   )

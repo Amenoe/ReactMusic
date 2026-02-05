@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import recommendTopBg from '@/assets/img/recommend-top-bg.png'
 import sprite2 from '@/assets/img/sprite_02.png'
+import sprite_icon_2 from '@/assets/img/sprite_icon2.png'
 
 export const PlayListWrapper = styled.div`
   .content {
@@ -19,13 +20,24 @@ export const PlayListWrapper = styled.div`
     background: url(${sprite2}) no-repeat 0 9999px;
     background-position: -300px -205px;
   }
-  .add {
-    background: url(${sprite2}) no-repeat 0 9999px;
+  .add_item {
+    background: url(${sprite_icon_2}) no-repeat 0 9999px;
+    margin-top: 2px;
     background-position: 0 -700px;
   }
 
+  .play_item {
+    background: url(${sprite2}) no-repeat 0 9999px;
+    background-position: -267px -268px;
+  }
+
+  .collect_item {
+    background: url(${sprite2}) no-repeat 0 9999px;
+    background-position: -297px -268px;
+  }
+
   .list {
-    width: 230px;
+    width: 229px;
     > .top {
       padding: 20px 0 0 19px;
       display: flex;
@@ -112,6 +124,7 @@ export const PlayListWrapper = styled.div`
       display: flex;
       height: 32px;
       .no {
+        flex-shrink: 0;
         width: 35px;
         height: 32px;
         text-align: center;
@@ -130,6 +143,26 @@ export const PlayListWrapper = styled.div`
         cursor: pointer;
         &:hover {
           text-decoration: underline;
+        }
+      }
+
+      .show {
+        display: flex !important;
+      }
+
+      .oper {
+        display: none;
+        flex: 1;
+        justify-content: flex-end;
+        width: 82px;
+        margin-top: 7px;
+        float: right;
+
+        a {
+          float: left;
+          width: 17px;
+          height: 17px;
+          margin-right: 10px;
         }
       }
     }
