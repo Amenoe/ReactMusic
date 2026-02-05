@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
       port: 8011,
       proxy: {
         [env.VITE_BASE_API]: {
-          target: 'http://codercba.com:9002',
+          target: 'http://localhost:3000',
           changeOrigin: true,
           rewrite: (path) => path.replace(env.VITE_BASE_API, '')
         }

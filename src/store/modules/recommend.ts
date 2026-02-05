@@ -16,7 +16,7 @@ export interface RecommendState {
   bannersList: IBanners[]
   hotRecommendList: IHotRecommend[]
   newAlbumList: INewAlbumData[]
-  playList: any[]
+  playList: { name: ''; data: { tracks: [] } }[] // 榜单数据
   fetchBanners: () => Promise<void>
   fetchHotRecommend: () => Promise<void>
   fetchNewAlbum: () => Promise<void>
@@ -24,10 +24,10 @@ export interface RecommendState {
 }
 
 export const recommendStore: StateCreator<RecommendState> = (set) => ({
-  bannersList: [],
-  hotRecommendList: [],
-  newAlbumList: [],
-  playList: [],
+  bannersList: [], //首页banner
+  hotRecommendList: [], // 热门推荐
+  newAlbumList: [], // 新碟上架
+  playList: [], // 榜单数据
 
   fetchBanners: async () => {
     const res = await getBanners()
@@ -51,14 +51,22 @@ export const recommendStore: StateCreator<RecommendState> = (set) => ({
     for (const item of topIdList) {
       if (item.name === '飙升榜') {
         const res = await getPlayListDetail(item.id)
-        set({ playList: res.playlist })
+        set((state) => ({
+          playList: [...state.playList, { name: item.name, data: res.playlist }]
+        }))
       }
       // 其他榜单数据获取逻辑保持不变
       if (item.name === '新歌榜') {
-        await getPlayListDetail(item.id)
+        const res = await getPlayListDetail(item.id)
+        set((state) => ({
+          playList: [...state.playList, { name: item.name, data: res.playlist }]
+        }))
       }
       if (item.name === '原创榜') {
-        await getPlayListDetail(item.id)
+        const res = await getPlayListDetail(item.id)
+        set((state) => ({
+          playList: [...state.playList, { name: item.name, data: res.playlist }]
+        }))
       }
     }
   }
