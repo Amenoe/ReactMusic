@@ -13,7 +13,6 @@ export const request = new Request({
     },
 
     responseInterceptor(config) {
-      console.log(1, config)
       // 处理后端返回的code
       if (config.data.code === 200) {
         // message.success('请求成功')

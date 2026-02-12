@@ -47,7 +47,7 @@ export function getTopList() {
 }
 
 // 入驻歌手
-export function getSettleSinger(limit: string) {
+export function getSettleSinger(limit: number) {
   return request.get({
     url: '/artist/list',
     params: {

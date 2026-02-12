@@ -2,7 +2,8 @@ import {
   getBanners,
   getHotRecommends,
   getNewAlbums,
-  getPlayListDetail
+  getPlayListDetail,
+  getSettleSinger
 } from '@/service/recommend'
 import type {
   IBanners,
@@ -17,7 +18,9 @@ export interface RecommendState {
   hotRecommendList: IHotRecommend[]
   newAlbumList: INewAlbumData[]
   playList: { name: ''; data: { tracks: [] } }[] // 榜单数据
+  topArtists: [] // 入驻歌手
   fetchBanners: () => Promise<void>
+  fetchTopArtist: () => Promise<void>
   fetchHotRecommend: () => Promise<void>
   fetchNewAlbum: () => Promise<void>
   fetchPlayListDetail: () => Promise<void>
@@ -28,10 +31,16 @@ export const recommendStore: StateCreator<RecommendState> = (set) => ({
   hotRecommendList: [], // 热门推荐
   newAlbumList: [], // 新碟上架
   playList: [], // 榜单数据
+  topArtists: [], // 入驻歌手
 
   fetchBanners: async () => {
     const res = await getBanners()
     set({ bannersList: res.banners })
+  },
+
+  fetchTopArtist: async () => {
+    const res = await getSettleSinger(5)
+    set({ topArtists: res.artists })
   },
 
   fetchHotRecommend: async () => {

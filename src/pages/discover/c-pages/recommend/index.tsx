@@ -5,15 +5,24 @@ import HotRecommend from './components/hot-recommend'
 import NewAlbum from './components/new-album'
 import PlayList from './components/play-list'
 import { useStore } from '@/store'
+import UserLogin from './components/user-login'
+import SettleSinger from './components/settle-singer'
 
 const Recommend: React.FC = () => {
-  const { fetchBanners, fetchHotRecommend, fetchNewAlbum, fetchPlayListDetail } = useStore()
+  const {
+    fetchBanners,
+    fetchHotRecommend,
+    fetchNewAlbum,
+    fetchPlayListDetail,
+    fetchTopArtist
+  } = useStore()
 
   useEffect(() => {
     fetchBanners()
     fetchHotRecommend()
     fetchNewAlbum()
     fetchPlayListDetail()
+    fetchTopArtist()
   }, [])
 
   return (
@@ -25,7 +34,10 @@ const Recommend: React.FC = () => {
           <NewAlbum />
           <PlayList />
         </div>
-        <div className="right">right</div>
+        <div className="right">
+          <UserLogin />
+          <SettleSinger />
+        </div>
       </div>
     </RecommendWrapper>
   )
