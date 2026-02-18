@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import AppHeader from './components/app-header/app-header'
 import AppFooter from './components/app-footer/app-footer'
 import { FloatButton } from 'antd'
+import PlayerBar from './pages/player/player-bar'
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
       <AppFooter />
       {/* 返回顶部 */}
       <FloatButton.BackTop />
+      {/* 播放工具栏 */}
+      <PlayerBar />
     </div>
   )
 }
