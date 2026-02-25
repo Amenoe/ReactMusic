@@ -57,26 +57,13 @@ export const recommendStore: StateCreator<RecommendState> = (set) => ({
     const topIdList = getLocalStorage('topIdList')
     if (!topIdList) return
 
+    const playList = []
     for (const item of topIdList) {
-      if (item.name === '飙升榜') {
+      if (['飙升榜', '新歌榜', '原创榜'].includes(item.name)) {
         const res = await getPlayListDetail(item.id)
-        set((state) => ({
-          playList: [...state.playList, { name: item.name, data: res.playlist }]
-        }))
-      }
-      // 其他榜单数据获取逻辑保持不变
-      if (item.name === '新歌榜') {
-        const res = await getPlayListDetail(item.id)
-        set((state) => ({
-          playList: [...state.playList, { name: item.name, data: res.playlist }]
-        }))
-      }
-      if (item.name === '原创榜') {
-        const res = await getPlayListDetail(item.id)
-        set((state) => ({
-          playList: [...state.playList, { name: item.name, data: res.playlist }]
-        }))
+        playList.push({ name: item.name, data: res.playlist })
       }
     }
+    set({ playList })
   }
 })

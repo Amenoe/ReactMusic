@@ -20,7 +20,6 @@ export const PlayerbarWrapper = styled.div`
     bottom: 0;
   }
 
-
   .content {
     width: 1030px;
     display: flex;
@@ -69,7 +68,7 @@ export const PlayerbarWrapper = styled.div`
 `
 
 interface IBarControlProps {
-  isPlaying: boolean
+  $isplaying: boolean
 }
 export const BarControl = styled.div<IBarControlProps>`
   display: flex;
@@ -97,13 +96,14 @@ export const BarControl = styled.div<IBarControlProps>`
     width: 36px;
     height: 36px;
     /* 动态的传递 */
-    background-position: 0 ${(props) => (props.isPlaying ? '-165px' : '-204px')};
+    background-position: 0
+      ${(props) => (props.$isplaying ? '-165px' : '-204px')};
     margin-top: 0;
 
     &:hover {
       /* 动态的传递 */
       background-position: -40px
-        ${(props) => (props.isPlaying ? '-165px' : '-204px')};
+        ${(props) => (props.$isplaying ? '-165px' : '-204px')};
     }
   }
 
@@ -207,7 +207,7 @@ export const BarPlayerInfo = styled.div`
 `
 
 interface IBarOperatorProps {
-  playSequence: number
+  playsequence: number
 }
 export const BarOperator = styled.div<IBarOperatorProps>`
   display: flex;
@@ -266,7 +266,7 @@ export const BarOperator = styled.div<IBarOperatorProps>`
 
     .loop {
       background-position: ${(props) => {
-        switch (props.playSequence) {
+        switch (props.playsequence) {
           case 1:
             return '-66px -248px;'
           case 2:

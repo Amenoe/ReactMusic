@@ -7,9 +7,14 @@ interface IProps {}
 
 const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
   const playList = useStore((state) => state.playList)
+  const fetchSongDetail = useStore((state) => state.fetchSongDetail)
   const [curIndex, setCurIndex] = useState(-1)
   const setShowOper = (index: number) => {
     setCurIndex(index)
+  }
+
+  const handleClickPlay = (id: number) => {
+    fetchSongDetail(id)
   }
   return (
     <PlayListWrapper>
@@ -48,9 +53,13 @@ const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
                       <div
                         className={`oper ${track.id + index + i === curIndex ? 'show' : ''}`}
                       >
-                        <a className="play_item"></a>
-                        <a className="add_item"></a>
-                        <a className="collect_item"></a>
+                        <a
+                          className="play_item"
+                          title="播放"
+                          onClick={() => handleClickPlay(track.id)}
+                        ></a>
+                        <a className="add_item" title="添加到播放列表"></a>
+                        <a className="collect_item" title="收藏"></a>
                       </div>
                     </div>
                   )
