@@ -16,6 +16,7 @@ import { Slider } from 'antd'
 import { useStore } from '@/store'
 import dayjs from 'dayjs'
 import { getSongUrl } from '@/service/player'
+import classNames from 'classnames'
 
 interface IProps {}
 const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
@@ -24,6 +25,8 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
   const [currentTime, setCurrentTime] = useState('00:00')
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
+
+  const [isLock, setIsLock] = useState(false)
   // 处理进度条改变
   const handleSilderChange = (value: number) => {
     setProgress(value)
@@ -79,7 +82,7 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
     }
   }
   return (
-    <PlayerbarWrapper className="sprite_player">
+    <PlayerbarWrapper $islock={isLock} className="sprite_player">
       <div className="content">
         <BarControl $isplaying={isPlaying}>
           <button className="btn sprite_player prev"></button>
@@ -131,6 +134,16 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
             <button className="btn sprite_player playlist"></button>
           </div>
         </BarOperator>
+      </div>
+      <div className="sprite_player lock-bg">
+        <button
+          className={classNames(
+            'sprite_player',
+            'lock',
+            isLock ? 'lock-active' : ''
+          )}
+          onClick={() => setIsLock(!isLock)}
+        ></button>
       </div>
       <audio ref={audioRef} onTimeUpdate={handleTimeUpdate}></audio>
     </PlayerbarWrapper>

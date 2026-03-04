@@ -4,20 +4,61 @@ import progress_bar from '@/assets/img/progress_bar.png'
 import sprite_icon from '@/assets/img/sprite_icon.png'
 import playbar_sprite from '@/assets/img/playbar_sprite.png'
 import pip_icon from '@/assets/img/pip_icon.png'
+interface IPlayerbarWrapperProps {
+  $islock: boolean
+}
 
-export const PlayerbarWrapper = styled.div`
+export const PlayerbarWrapper = styled.div<IPlayerbarWrapperProps>`
   position: fixed;
   z-index: 99;
   left: 0;
   right: 0;
-  bottom: -45px;
+  bottom: ${(props) => (props.$islock ? '0' : '-45px')};
   height: 53px;
   background-position: 0 0;
   background-repeat: repeat;
   transition: bottom 0.3s;
 
+  .lock-bg {
+    position: absolute;
+    top: -14px;
+    right: 15px;
+    width: 52px;
+    height: 67px;
+    background-position: 0 -380px;
+    z-index: 1;
+
+    .lock {
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin: 6px 0 0 17px;
+      background-position: -80px -380px;
+      cursor: pointer;
+
+      &:hover {
+        background-position: -80px -400px;
+      }
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+  }
+
   &:hover {
     bottom: 0;
+  }
+  .lock.lock-active {
+    background-position: -100px -380px;
+    &:hover {
+      background-position: -100px -400px;
+    }
   }
 
   .content {
