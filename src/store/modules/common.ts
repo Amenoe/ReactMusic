@@ -7,15 +7,12 @@ import { StateCreator } from 'zustand'
 import type { ISong } from '@/service/player/types'
 import type { ITopList, ITopListData } from '@/service/recommend/types'
 
-export interface ICommonState {
+export interface CommonState {
   topList: ITopList[]
-  currentSong: Partial<ISong> // 当前播放的歌曲信息
   fetchTopList: () => Promise<void>
-  fetchSongDetail: (id: number) => Promise<void>
 }
 
-export const commonStore: StateCreator<ICommonState> = (set) => ({
-  currentSong: {},
+export const commonStore: StateCreator<CommonState> = (set) => ({
   topList: [],
   fetchTopList: async () => {
     const res = await getTopList()
@@ -27,10 +24,5 @@ export const commonStore: StateCreator<ICommonState> = (set) => ({
       }
     })
     setLocalStorage('topIdList', data)
-  },
-
-  fetchSongDetail: async (id: number) => {
-    const res = await getSongDetail(id)
-    set({ currentSong: res.songs[0] })
   }
 })

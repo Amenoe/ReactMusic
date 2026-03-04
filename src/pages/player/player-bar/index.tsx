@@ -24,14 +24,17 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
   const [currentTime, setCurrentTime] = useState('00:00')
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
+  // 处理进度条改变
   const handleSilderChange = (value: number) => {
     setProgress(value)
+    if (audioRef.current) {
+      audioRef.current.currentTime = (value / 100) * audioRef.current.duration
+    }
   }
   useEffect(() => {
     if (currentSong.id) {
       getSongUrl(currentSong.id).then((res) => {
         audioRef.current!.src = res.data[0].url
-
         audioRef.current
           ?.play()
           .then(() => {
@@ -57,13 +60,22 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
     }
   }
 
-  // 处理时间更新
+  // 处理时间更新(audio自动执行)
   const handleTimeUpdate = () => {
+    console.log(audioRef.current?.currentTime, audioRef.current?.duration)
+
     if (audioRef.current) {
       setCurrentTime(dayjs(audioRef.current.currentTime * 1000).format('mm:ss'))
+      // 按照歌曲信息的长度来计算，不然会出现vip播放30s问题
       setProgress(
-        (audioRef.current.currentTime / audioRef.current.duration) * 100
+        currentSong.dt
+          ? (audioRef.current.currentTime / (currentSong.dt / 1000)) * 100
+          : 0
       )
+      //TODO 播放结束且为列表最后一首改为暂停
+      if (audioRef.current.currentTime === audioRef.current.duration) {
+        setIsPlaying(false)
+      }
     }
   }
   return (
@@ -89,12 +101,19 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
               </a>
             </div>
             <div className="progress">
-              <Slider value={progress} onChange={handleSilderChange}></Slider>
+              <Slider
+                step={0.2}
+                tooltip={{ formatter: null }}
+                value={progress}
+                onChange={handleSilderChange}
+              ></Slider>
               <div className="time">
                 <div className="current">{currentTime}</div>
                 <div className="divider">/</div>
                 <div className="total-time">
-                  {currentSong.dt ? dayjs(currentSong.dt).format('mm:ss') : ''}
+                  {currentSong.dt
+                    ? dayjs(currentSong.dt).format('mm:ss')
+                    : '00:00'}
                 </div>
               </div>
             </div>
