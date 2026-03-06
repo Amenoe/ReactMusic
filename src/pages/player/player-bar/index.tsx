@@ -15,8 +15,9 @@ import { NavLink } from 'react-router-dom'
 import { Slider } from 'antd'
 import { useStore } from '@/store'
 import dayjs from 'dayjs'
-import { getSongUrl } from '@/service/player'
+import { getSongLyric, getSongUrl } from '@/service/player'
 import classNames from 'classnames'
+import { useAsyncEffect } from 'ahooks'
 
 interface IProps {}
 const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
@@ -34,21 +35,22 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
       audioRef.current.currentTime = (value / 100) * audioRef.current.duration
     }
   }
-  useEffect(() => {
+  useAsyncEffect(async () => {
+    // 播放歌曲
     if (currentSong.id) {
-      getSongUrl(currentSong.id).then((res) => {
-        audioRef.current!.src = res.data[0].url
-        audioRef.current
-          ?.play()
-          .then(() => {
-            setIsPlaying(true)
-            console.log('歌曲播放成功')
-          })
-          .catch(() => {
-            setIsPlaying(false)
-            console.log('歌曲播放失败')
-          })
-      })
+      const urlData = await getSongUrl(currentSong.id)
+
+      audioRef.current!.src = urlData.data[0].url
+      audioRef.current
+        ?.play()
+        .then(() => {
+          setIsPlaying(true)
+          console.log('歌曲播放成功')
+        })
+        .catch(() => {
+          setIsPlaying(false)
+          console.log('歌曲播放失败')
+        })
     }
   }, [currentSong])
 
@@ -65,8 +67,6 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
 
   // 处理时间更新(audio自动执行)
   const handleTimeUpdate = () => {
-    console.log(audioRef.current?.currentTime, audioRef.current?.duration)
-
     if (audioRef.current) {
       setCurrentTime(dayjs(audioRef.current.currentTime * 1000).format('mm:ss'))
       // 按照歌曲信息的长度来计算，不然会出现vip播放30s问题

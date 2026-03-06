@@ -8,14 +8,17 @@ interface IProps {}
 const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
   const playList = useStore((state) => state.playList)
   const fetchSongDetail = useStore((state) => state.fetchSongDetail)
+  const fetchSongLyric = useStore((state) => state.fetchSongLyric)
   const [curIndex, setCurIndex] = useState(-1)
   const setShowOper = (index: number) => {
     setCurIndex(index)
   }
 
+  // 点击播放时，先获取歌曲详情，再获取歌词
   const handleClickPlay = (id: number) => {
-    fetchSongDetail(id)
+    Promise.all([fetchSongDetail(id), fetchSongLyric(id)])
   }
+
   return (
     <PlayListWrapper>
       <AreaTop

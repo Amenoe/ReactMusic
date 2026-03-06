@@ -211,3 +211,12 @@ export interface FreeTimeTrialPrivilege {
   type: number
   remainTime: number
 }
+
+export interface ILyric {
+  lrc: Lrc
+  code: number
+}
+
+export interface Lrc {
+  lyric: string
+}

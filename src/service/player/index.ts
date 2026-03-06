@@ -1,5 +1,5 @@
 import { request } from '../index'
-import { ISongDetail, ISongUrl } from './types'
+import { ILyric, ISongDetail, ISongUrl } from './types'
 
 /**
  * 获取歌曲详情
@@ -21,6 +21,15 @@ export function getSongUrl(id: number): Promise<ISongUrl> {
     params: {
       id,
       level: 'exhigh'
+    }
+  })
+}
+
+export function getSongLyric(id: number): Promise<ILyric> {
+  return request.get({
+    url: '/lyric',
+    params: {
+      id
     }
   })
 }
