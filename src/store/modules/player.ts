@@ -9,6 +9,7 @@ export interface PlayerState {
   lyricIndex: number // 当前播放的歌词索引
   fetchSongDetail: (id: number) => Promise<void>
   fetchSongLyric: (id: number) => Promise<void>
+  changeLyricIndex: (index: number) => void
 }
 
 export const playerStore: StateCreator<PlayerState> = (set) => ({
@@ -27,5 +28,8 @@ export const playerStore: StateCreator<PlayerState> = (set) => ({
     console.log(lyric, 'lyric')
 
     set({ currentLyric: lyric })
+  },
+  changeLyricIndex: (index: number) => {
+    set({ lyricIndex: index })
   }
 })

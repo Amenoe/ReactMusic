@@ -39,6 +39,11 @@ const routes: RouteObject[] = [
       {
         path: '/discover/album',
         Component: lazy(() => import('@/pages/discover/c-pages/album'))
+      },
+      // 歌曲详情
+      {
+        path: '/discover/song/:id',
+        Component: lazy(() => import('@/pages/discover/c-pages/song'))
       }
     ]
   },

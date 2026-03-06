@@ -1,5 +1,5 @@
 import { request } from '../index'
-import { ILyric, ISongDetail, ISongUrl } from './types'
+import { ILyric, ISongDetail, ISongUrl, ISongComment } from './types'
 
 /**
  * 获取歌曲详情
@@ -33,3 +33,19 @@ export function getSongLyric(id: number): Promise<ILyric> {
     }
   })
 }
+
+export function getSongComment(
+  id: number,
+  limit = 20,
+  offset = 0
+): Promise<ISongComment> {
+  return request.get({
+    url: '/comment/music',
+    params: {
+      id,
+      limit,
+      offset
+    }
+  })
+}
+

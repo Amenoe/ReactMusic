@@ -15,13 +15,18 @@ import { NavLink } from 'react-router-dom'
 import { Slider } from 'antd'
 import { useStore } from '@/store'
 import dayjs from 'dayjs'
-import { getSongLyric, getSongUrl } from '@/service/player'
+import { getSongUrl } from '@/service/player'
 import classNames from 'classnames'
 import { useAsyncEffect } from 'ahooks'
 
 interface IProps {}
 const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
   const currentSong = useStore((state) => state.currentSong)
+  const currentLyric = useStore((state) => state.currentLyric)
+  const lyricIndex = useStore((state) => state.lyricIndex)
+  const fetchSongLyric = useStore((state) => state.fetchSongLyric)
+  const changeLyricIndex = useStore((state) => state.changeLyricIndex)
+
   const audioRef = useRef<HTMLAudioElement>(null)
   const [currentTime, setCurrentTime] = useState('00:00')
   const [isPlaying, setIsPlaying] = useState(false)
@@ -38,6 +43,7 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
   useAsyncEffect(async () => {
     // 播放歌曲
     if (currentSong.id) {
+      fetchSongLyric(currentSong.id)
       const urlData = await getSongUrl(currentSong.id)
 
       audioRef.current!.src = urlData.data[0].url
@@ -68,13 +74,28 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
   // 处理时间更新(audio自动执行)
   const handleTimeUpdate = () => {
     if (audioRef.current) {
-      setCurrentTime(dayjs(audioRef.current.currentTime * 1000).format('mm:ss'))
+      const currentTimeVal = audioRef.current.currentTime * 1000
+      setCurrentTime(dayjs(currentTimeVal).format('mm:ss'))
       // 按照歌曲信息的长度来计算，不然会出现vip播放30s问题
       setProgress(
         currentSong.dt
           ? (audioRef.current.currentTime / (currentSong.dt / 1000)) * 100
           : 0
       )
+
+      // 匹配歌词
+      let i = 0
+      for (; i < currentLyric.length; i++) {
+        const lyricTime = currentLyric[i].time
+        if (currentTimeVal < lyricTime) {
+          break
+        }
+      }
+      const finalIndex = i - 1
+      if (finalIndex !== lyricIndex) {
+        changeLyricIndex(finalIndex)
+      }
+
       //TODO 播放结束且为列表最后一首改为暂停
       if (audioRef.current.currentTime === audioRef.current.duration) {
         setIsPlaying(false)
@@ -93,7 +114,7 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
           <button className="btn sprite_player next"></button>
         </BarControl>
         <BarPlayerInfo>
-          <NavLink to="/discover/player">
+          <NavLink to={`/discover/song/${currentSong.id}`}>
             <img className="image" src={currentSong.al?.picUrl} alt="" />
           </NavLink>
           <div className="info">

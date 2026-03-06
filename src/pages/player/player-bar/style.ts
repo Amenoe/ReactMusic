@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 import progress_bar from '@/assets/img/progress_bar.png'
 import sprite_icon from '@/assets/img/sprite_icon.png'
-import playbar_sprite from '@/assets/img/playbar_sprite.png'
 import pip_icon from '@/assets/img/pip_icon.png'
 interface IPlayerbarWrapperProps {
   $islock: boolean
@@ -71,40 +70,6 @@ export const PlayerbarWrapper = styled.div<IPlayerbarWrapperProps>`
     bottom: 0;
     height: 47px;
     align-content: center;
-  }
-
-  /* 进入 */
-  .playlist-enter,
-  .playlist-appear {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  /* 执行动画 */
-  .playlist-enter-active,
-  .playlist-appear-active {
-    transition:
-      opacity 300ms,
-      transform 300ms;
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  /* 离开 */
-  .playlist-exit {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .playlist-exit-active {
-    opacity: 0;
-    transform: scale(0.6);
-    transition:
-      opacity 300ms,
-      transform 300ms;
-  }
-
-  .playlist-exit-done {
-    opacity: 0;
   }
 `
 
@@ -271,12 +236,15 @@ export const BarOperator = styled.div<IBarOperatorProps>`
   .favor {
     background-position: -88px -163px;
     &:hover {
-      color: #ccc;
+      background-position: -88px -189px;
     }
   }
 
   .share {
     background-position: -114px -163px;
+    &:hover {
+      background-position: -114px -189px;
+    }
   }
 
   .left {
@@ -284,13 +252,6 @@ export const BarOperator = styled.div<IBarOperatorProps>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-
-  .anticon-download {
-    cursor: pointer;
-    padding: 1px 6px;
-    font-size: 19px;
-    color: #adadad;
   }
 
   .right {
@@ -303,6 +264,9 @@ export const BarOperator = styled.div<IBarOperatorProps>`
 
     .volume {
       background-position: -2px -248px;
+      &:hover {
+        background-position: -31px -248px;
+      }
     }
 
     .loop {
@@ -329,37 +293,6 @@ export const BarOperator = styled.div<IBarOperatorProps>`
       color: #ccc;
       width: 59px;
       background-position: -42px -68px;
-    }
-  }
-
-  .top-volume {
-    position: absolute;
-    top: -117px;
-    left: 65px;
-    clear: both;
-    width: 32px;
-    height: 113px;
-    overflow: hidden;
-    padding: 10px;
-    background-position: 0 -503px;
-
-    /* ant design Slider style change */
-    .ant-slider-vertical {
-      margin: 0;
-      .ant-slider-rail {
-        background-color: transparent;
-      }
-
-      .ant-slider-track {
-        background: url(${playbar_sprite}) no-repeat 0 9999px;
-        background-position: -40px bottom;
-      }
-
-      .ant-slider-handle {
-        border: 0;
-        background: url(${sprite_icon});
-        background-position: -42px -250px;
-      }
     }
   }
 `

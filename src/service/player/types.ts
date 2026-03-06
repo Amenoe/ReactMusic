@@ -220,3 +220,27 @@ export interface ILyric {
 export interface Lrc {
   lyric: string
 }
+
+export interface ISongComment {
+  topComments: any[]
+  hotComments: any[]
+  comments: IComment[]
+  total: number
+  more: boolean
+  code: number
+}
+
+export interface IComment {
+  user: {
+    nickname: string
+    avatarUrl: string
+    userId: number
+    vipType: number
+  }
+  commentId: number
+  content: string
+  time: number
+  timeStr: string
+  likedCount: number
+  liked: boolean
+}
