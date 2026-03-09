@@ -25,7 +25,6 @@ export const playerStore: StateCreator<PlayerState> = (set) => ({
     const lyricString = res.lrc.lyric
     // 对歌词进行解析
     const lyric = parseLyric(lyricString)
-    console.log(lyric, 'lyric')
 
     set({ currentLyric: lyric })
   },

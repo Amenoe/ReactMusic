@@ -12,12 +12,12 @@ import {
   PlayerbarWrapper
 } from './style'
 import { NavLink } from 'react-router-dom'
-import { Slider } from 'antd'
+import { ConfigProvider, Slider } from 'antd'
 import { useStore } from '@/store'
 import dayjs from 'dayjs'
 import { getSongUrl } from '@/service/player'
 import classNames from 'classnames'
-import { useAsyncEffect } from 'ahooks'
+import { useAsyncEffect, useClickAway } from 'ahooks'
 
 interface IProps {}
 const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
@@ -26,11 +26,20 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
   const lyricIndex = useStore((state) => state.lyricIndex)
   const fetchSongLyric = useStore((state) => state.fetchSongLyric)
   const changeLyricIndex = useStore((state) => state.changeLyricIndex)
+  const volume = useStore((state) => state.volume)
+  const changeVolume = useStore((state) => state.changeVolume)
 
   const audioRef = useRef<HTMLAudioElement>(null)
   const [currentTime, setCurrentTime] = useState('00:00')
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [isVolumeBarShow, setIsVolumeBarShow] = useState(false)
+
+  // 点击空白处，音量条消失
+  const volumeRef = useRef<HTMLDivElement>(null)
+  useClickAway(() => {
+    setIsVolumeBarShow(false)
+  }, volumeRef)
 
   const [isLock, setIsLock] = useState(false)
   // 处理进度条改变
@@ -40,6 +49,19 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
       audioRef.current.currentTime = (value / 100) * audioRef.current.duration
     }
   }
+
+  // 处理音量改变
+  const handleVolumeChange = (value: number) => {
+    changeVolume(value)
+  }
+
+  // 音量改变时，同步audio音量
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100
+    }
+  }, [volume])
+
   useAsyncEffect(async () => {
     // 播放歌曲
     if (currentSong.id) {
@@ -102,6 +124,10 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
       }
     }
   }
+
+  const showVolumeBar = () => {
+    setIsVolumeBarShow(!isVolumeBarShow)
+  }
   return (
     <PlayerbarWrapper $islock={isLock} className="sprite_player">
       <div className="content">
@@ -150,7 +176,35 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
             <button className="btn sprite_player share"></button>
           </div>
           <div className="right">
-            <button className="btn sprite_player volume"></button>
+            <div className="volume-container" ref={volumeRef}>
+              {isVolumeBarShow && (
+                <ConfigProvider
+                  theme={{
+                    components: {
+                      Slider: {
+                        handleActiveColor: '#c20c0c',
+                        handleActiveOutlineColor: 'rgba(194, 12, 12, 0.2)'
+                      }
+                    }
+                  }}
+                >
+                  <Slider
+                    classNames={{
+                      root: 'volume-bar',
+                      track: 'volume-track',
+                      handle: 'volume-handle'
+                    }}
+                    vertical
+                    value={volume}
+                    onChange={handleVolumeChange}
+                  />
+                </ConfigProvider>
+              )}
+              <button
+                className="btn sprite_player volume"
+                onClick={showVolumeBar}
+              ></button>
+            </div>
             <button className="btn sprite_player loop"></button>
             <button className="btn sprite_player playlist"></button>
           </div>

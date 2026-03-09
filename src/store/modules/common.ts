@@ -9,11 +9,14 @@ import type { ITopList, ITopListData } from '@/service/recommend/types'
 
 export interface CommonState {
   topList: ITopList[]
+  volume: number
   fetchTopList: () => Promise<void>
+  changeVolume: (volume: number) => void
 }
 
 export const commonStore: StateCreator<CommonState> = (set) => ({
   topList: [],
+  volume: Number(localStorage.getItem('volume')) || 100,
   fetchTopList: async () => {
     const res = await getTopList()
     set({ topList: res.list })
@@ -24,5 +27,9 @@ export const commonStore: StateCreator<CommonState> = (set) => ({
       }
     })
     setLocalStorage('topIdList', data)
+  },
+  changeVolume: (volume: number) => {
+    set({ volume })
+    setLocalStorage('volume', volume)
   }
 })

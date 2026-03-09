@@ -11,17 +11,17 @@ const Song: React.FC = () => {
   const { id } = useParams()
   const lyricContentRef = useRef<HTMLDivElement>(null)
 
-  // Local state for when we are viewing a song that is NOT playing
+  // 当查看的歌曲不是当前播放歌曲时的本地状态
   const [localSong, setLocalSong] = useState<ISong>()
   const [localLyric, setLocalLyric] = useState<ILyricItem[]>([])
-  const [localLyricIndex, setLocalLyricIndex] = useState(0) // Usually 0 if not playing
+  const [localLyricIndex, setLocalLyricIndex] = useState(0) // 如果未播放，通常为 0
 
-  // Global state
+  // 全局状态
   const currentSong = useStore((state) => state.currentSong)
   const currentLyric = useStore((state) => state.currentLyric)
   const lyricIndex = useStore((state) => state.lyricIndex)
 
-  // Determine if we are viewing the current song
+  // 判断是否正在查看当前播放的歌曲
   const isCurrentSong = currentSong.id === Number(id)
 
   const displaySong = isCurrentSong ? currentSong : localSong
@@ -31,7 +31,7 @@ const Song: React.FC = () => {
   useEffect(() => {
     if (!id) return
 
-    // If not current song, fetch details
+    // 如果不是当前歌曲，获取详情
     if (!isCurrentSong) {
       getSongDetail(Number(id)).then((res) => {
         if (res.songs && res.songs.length > 0) {
@@ -47,14 +47,14 @@ const Song: React.FC = () => {
     }
   }, [id, isCurrentSong])
 
-  // Auto scroll logic
+  // 自动滚动逻辑
   useEffect(() => {
     if (displayIndex > 0 && lyricContentRef.current) {
       const activeLine = lyricContentRef.current.children[
         displayIndex
       ] as HTMLElement
       if (activeLine) {
-        // Scroll to center: activeLine.offsetTop - container.height/2 + activeLine.height/2
+        // 滚动到中间：activeLine.offsetTop - container.height/2 + activeLine.height/2
         const container = lyricContentRef.current
         const scrollSdk =
           activeLine.offsetTop -

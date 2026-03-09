@@ -286,6 +286,24 @@ export const BarOperator = styled.div<IBarOperatorProps>`
       } */
     }
 
+    .volume-bar {
+      width: 32px;
+      height: 113px;
+      position: absolute;
+      bottom: 42px;
+      right: 105px;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .volume-track {
+      left: 45%;
+      background-color: #b6291f;
+    }
+
+    .volume-handle {
+      left: 36%;
+    }
+
     .playlist {
       /* position: relative; */
       padding-left: 18px;
