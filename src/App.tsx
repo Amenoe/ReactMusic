@@ -15,7 +15,9 @@ function App() {
       </Suspense>
       <AppFooter />
       {/* 返回顶部 */}
-      <FloatButton.BackTop style={{ bottom: '180px', right: '440px' }} />
+      <FloatButton.BackTop
+        style={{ bottom: '14%', right: 'calc((100% - 980px) / 2 - 50px)' }}
+      />
       {/* 播放工具栏 */}
       <PlayerBar />
     </div>

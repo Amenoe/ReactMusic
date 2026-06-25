@@ -184,11 +184,22 @@ export const BarPlayerInfo = styled.div`
           background-position: 0 -250px;
           top: -5px;
           margin-left: -5px;
+
           &::after {
             display: none;
           }
+
           &::before {
             display: none;
+          }
+
+          &:hover,
+          &:focus,
+          &.ant-slider-handle-dragging {
+            &::after,
+            &::before {
+              display: none;
+            }
           }
         }
       }

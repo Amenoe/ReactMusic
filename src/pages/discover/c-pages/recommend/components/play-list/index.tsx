@@ -6,7 +6,7 @@ import { useStore } from '@/store'
 interface IProps {}
 
 const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
-  const playList = useStore((state) => state.playList)
+  const topPlayList = useStore((state) => state.topPlayList)
   const fetchSongDetail = useStore((state) => state.fetchSongDetail)
   const fetchSongLyric = useStore((state) => state.fetchSongLyric)
   const [curIndex, setCurIndex] = useState(-1)
@@ -27,7 +27,9 @@ const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
         moreLink="/discover/toplist"
       ></AreaTop>
       <div className="content">
-        {playList.map((item, index) => {
+        {topPlayList.map((item, index) => {
+          const tracks = item.data?.tracks ?? []
+
           return (
             <div className="list" key={item.name}>
               <div className="top">
@@ -41,7 +43,7 @@ const PlayList: React.FC<PropsWithChildren<IProps>> = () => {
                 </div>
               </div>
               <div className="list-content">
-                {item.data.tracks.slice(0, 10).map((track: any, i) => {
+                {tracks.slice(0, 10).map((track: any, i) => {
                   return (
                     <div
                       className="item"
