@@ -154,3 +154,50 @@ export interface ITopList {
   coverImgId_str: string
   ToplistType?: string
 }
+
+// 歌单评论
+export interface IPlaylistCommentData {
+  topComments: any[]
+  hotComments: IPlaylistComment[]
+  comments: IPlaylistComment[]
+  total: number
+  more: boolean
+  code: number
+}
+
+export interface IPlaylistComment {
+  user: {
+    nickname: string
+    avatarUrl: string
+    userId: number
+    vipType: number
+  }
+  commentId: number
+  content: string
+  time: number
+  timeStr: string
+  likedCount: number
+  liked: boolean
+}
+
+// 热门歌单
+export interface ITopPlaylistData {
+  playlists: ITopPlaylistItem[]
+  total: number
+  code: number
+}
+
+export interface ITopPlaylistItem {
+  id: number
+  name: string
+  coverImgUrl: string
+  playCount: number
+  trackCount: number
+  creator: {
+    nickname: string
+    avatarUrl: string
+    userId: number
+  }
+  description: string
+  tags: string[]
+}

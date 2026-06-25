@@ -3,7 +3,8 @@ import {
   IBannerData,
   IHotRecommendData,
   INewAlbum,
-  ITopListData
+  ITopListData,
+  IPlaylistCommentData
 } from './types'
 
 export function getBanners() {
@@ -69,5 +70,39 @@ export function collectionSongToSongList(
       pid,
       tracks
     }
+  })
+}
+
+// 歌单评论
+export function getPlaylistComment(
+  id: number,
+  limit = 20,
+  offset = 0
+): Promise<IPlaylistCommentData> {
+  return request.get({
+    url: '/comment/playlist',
+    params: {
+      id,
+      limit,
+      offset
+    }
+  })
+}
+
+// 热门歌单
+export function getTopPlaylist(limit = 6, cat = '全部') {
+  return request.get({
+    url: '/top/playlist',
+    params: {
+      limit,
+      cat
+    }
+  })
+}
+
+// 歌单分类
+export function getPlaylistCatlist() {
+  return request.get({
+    url: '/playlist/catlist'
   })
 }

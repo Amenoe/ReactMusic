@@ -34,6 +34,7 @@ const sliderTheme = {
 interface IProps {}
 const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
   const currentSong = useStore((state) => state.currentSong)
+  const playList = useStore((state) => state.playList)
   const currentLyric = useStore((state) => state.currentLyric)
   const lyricIndex = useStore((state) => state.lyricIndex)
   const fetchSongLyric = useStore((state) => state.fetchSongLyric)
@@ -179,12 +180,18 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
     <PlayerbarWrapper $islock={isLock} className="sprite_player">
       <div className="content">
         <BarControl $isplaying={isPlaying}>
-          <button className="btn sprite_player prev" onClick={() => playPrev()}></button>
+          <button
+            className="btn sprite_player prev"
+            onClick={() => playPrev()}
+          ></button>
           <button
             className="btn sprite_player play"
             onClick={handlePlay}
           ></button>
-          <button className="btn sprite_player next" onClick={() => playNext()}></button>
+          <button
+            className="btn sprite_player next"
+            onClick={() => playNext()}
+          ></button>
         </BarControl>
         <BarPlayerInfo>
           <NavLink to={`/discover/song/${currentSong.id}`}>
@@ -245,11 +252,16 @@ const PlayerBar: React.FC<PropsWithChildren<IProps>> = () => {
                 onClick={showVolumeBar}
               ></button>
             </div>
-            <button className="btn sprite_player loop" onClick={changePlayMode}></button>
+            <button
+              className="btn sprite_player loop"
+              onClick={changePlayMode}
+            ></button>
             <button
               className="btn sprite_player playlist"
               onClick={() => setIsPlaylistShow(!isPlaylistShow)}
-            ></button>
+            >
+              {playList.length}
+            </button>
             <PlayListPanel
               visible={isPlaylistShow}
               onClose={() => setIsPlaylistShow(false)}

@@ -322,6 +322,12 @@ export const BarOperator = styled.div<IBarOperatorProps>`
       color: #ccc;
       width: 59px;
       background-position: -42px -68px;
+      display: block;
+      text-align: center;
+      color: #666;
+      text-shadow: 0 1px 0 #080707;
+      text-indent: 0;
+      text-decoration: none;
     }
   }
 `

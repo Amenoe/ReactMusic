@@ -30,6 +30,11 @@ const routes: RouteObject[] = [
         path: '/discover/playlist',
         Component: lazy(() => import('@/pages/discover/c-pages/playlist'))
       },
+      // 歌单详情
+      {
+        path: '/discover/playlist/:id',
+        Component: lazy(() => import('@/pages/discover/c-pages/playlist-detail'))
+      },
       // 歌手
       {
         path: '/discover/artist',

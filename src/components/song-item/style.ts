@@ -3,6 +3,12 @@ import styled from 'styled-components'
 export const SongsItemWrapper = styled.div`
   width: 140px;
   margin: 20px 0;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   .cover-top {
     position: relative;
 
