@@ -35,6 +35,15 @@ const PlaylistTracks: React.FC<IProps> = (props) => {
   const columns: TableProps<ISong>['columns'] = [
     {
       title: '',
+      key: 'index',
+      width: 40,
+      align: 'center',
+      render: (_: unknown, __: ISong, index: number) => (
+        <span className="index">{index + 1}</span>
+      )
+    },
+    {
+      title: '',
       dataIndex: 'id',
       key: 'play',
       width: 40,
@@ -44,15 +53,6 @@ const PlaylistTracks: React.FC<IProps> = (props) => {
           className="play-btn"
           onClick={() => handlePlaySong(record)}
         />
-      )
-    },
-    {
-      title: '#',
-      key: 'index',
-      width: 40,
-      align: 'center',
-      render: (_: unknown, __: ISong, index: number) => (
-        <span className="index">{index + 1}</span>
       )
     },
     {
@@ -66,6 +66,28 @@ const PlaylistTracks: React.FC<IProps> = (props) => {
             <span className="alias">（{record.alia[0]}）</span>
           )}
         </>
+      )
+    },
+    {
+      title: '时长',
+      dataIndex: 'dt',
+      key: 'duration',
+      width: 150,
+      align: 'center',
+      render: (dt: number, record: ISong) => (
+        <div className="duration-cell">
+          <span className="duration-text">{formatDuration(dt)}</span>
+          <div className="hover-actions">
+            <FolderAddOutlined
+              className="action-icon"
+              title="添加到播放列表"
+              onClick={() => addToPlayList(record)}
+            />
+            <HeartOutlined className="action-icon" title="收藏" />
+            <ShareAltOutlined className="action-icon" title="分享" />
+            <DownloadOutlined className="action-icon" title="下载" />
+          </div>
+        </div>
       )
     },
     {
@@ -87,28 +109,6 @@ const PlaylistTracks: React.FC<IProps> = (props) => {
       key: 'album',
       width: 200,
       render: (al: ISong['al']) => <a href="/#">{al?.name}</a>
-    },
-    {
-      title: '时长',
-      dataIndex: 'dt',
-      key: 'duration',
-      width: 100,
-      align: 'center',
-      render: (dt: number, record: ISong) => (
-        <div className="duration-cell">
-          <span className="duration-text">{formatDuration(dt)}</span>
-          <div className="hover-actions">
-            <FolderAddOutlined
-              className="action-icon"
-              title="添加到播放列表"
-              onClick={() => addToPlayList(record)}
-            />
-            <HeartOutlined className="action-icon" title="收藏" />
-            <ShareAltOutlined className="action-icon" title="分享" />
-            <DownloadOutlined className="action-icon" title="下载" />
-          </div>
-        </div>
-      )
     }
   ]
 
